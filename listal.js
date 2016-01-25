@@ -44,7 +44,7 @@ catch (e) {
   fs.mkdirSync(baseTargetPath)
 }
 
-var downloadTemplate = "http://ilarge.listal.com/image/$id/10000full-$name.jpg"
+var downloadTemplate = "http://iv1.lisimg.com/image/$id/10000full-$name.jpg"
   .replace('$name',urlID)
 
 var picturePattern = /http:\/\/www.listal.com\/viewimage\/(\d+)/g
