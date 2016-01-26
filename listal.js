@@ -91,12 +91,19 @@ function processResult(res) {
 }
 
 function downloadFile(file_url, id) {
-
   var targetFileName = argv.o + '/' + urlID + '/' + id + '.jpg'
   var curl = 'curl -o ' + targetFileName  + ' ' + file_url
-  var child = exec(curl, function(err, stdout, stderr) {
-    if (err) throw err
-    else console.log(file_url + ' downloaded to ' + targetFileName)
+
+
+  fs.lstat(targetFileName, function(err, stats) {
+    if (!err && stats.isFile()) {
+      console.log(targetFileName + ' already exists, skipping.')
+    } else {
+      var child = exec(curl, function(err, stdout, stderr) {
+        if (err) throw err
+        else console.log(file_url + ' downloaded to ' + targetFileName)
+      })
+    }
     imagesDownloaded++
     if(imagesDownloaded % pageSize == 0) getNextPage()
   })
